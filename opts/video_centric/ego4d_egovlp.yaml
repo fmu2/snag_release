@@ -1,0 +1,108 @@
+model:
+  text_net:
+    name: identity        # identity | transformer
+    in_dim: 768           # input dimension
+    embd_dim: 768         # embedding dimension
+    n_heads: 4            # number of attention heads
+    max_seq_len: 24       # max number of tokens in text query
+    use_abs_pe: false     # whether to use absolute position encoding
+    use_bkgd_token: true  # whether to add background token
+    
+  vid_net:
+    name: transformer
+    in_dim: 256           # input dimension
+    embd_dim: 384         # embedding dimension
+    n_heads: 4            # number of attention heads
+    max_seq_len: 2304     # max number of clips in video
+    arch: [2, 0, 8]       # backbone architecture (embed | stem | branch)
+    mha_win_size: 19      # window size for local self-attention
+    attn_pdrop: 0.0       # dropout rate for attention map
+    proj_pdrop: 0.1       # dropout rate for projection
+    path_pdrop: 0.1       # dropout rate for residual paths
+    use_abs_pe: true      # whether to use absolute position encoding
+    
+  fusion:
+    name: xattn
+    n_layers: 2           # number of fusion layers
+    n_heads: 4            # number of attention heads
+    attn_pdrop: 0.0       # dropout rate for attention map
+    proj_pdrop: 0.1       # dropout rate for projection
+    path_pdrop: 0.1       # dropout rate for residual path
+    xattn_mode: adaln     # cross-attention mode
+    
+  cls_head:
+    name: cls
+    n_layers: 2           # number of conv layers (output layer excluded)
+    prior_prob: 0.0       # prior probability for positive class
+
+  reg_head:
+    name: reg
+    n_layers: 2           # number of conv layers (output layer excluded)
+
+pt_gen:
+  regression_range: 4     # normalized regression range
+  sigma: 0.5              # controls overlap of regression ranges (1 for no overlap)
+
+train:
+  data:
+    name: video_centric
+    split: train
+    anno_file: ./data/ego4d/annotations/ego4d_egovlp.json
+    vid_feat_dir: ./data/ego4d/egovlp_features/video
+    text_feat_dir: ./data/ego4d/egovlp_features/text/token_768d
+    ext_score_dir: null
+
+    clip_size: 32
+    clip_stride: 8
+    downsample_rate: 2      # downsampling stride for video features
+    to_fixed_len: false     # whether to resize video to fixed length
+    crop_ratio: null        # crop ratio for video features
+    max_num_text: 2
+
+  batch_size: 1
+  num_workers: 2
+
+  epochs: 2
+  warmup_epochs: 5
+  ema_beta: 0.999
+
+  center_sampling: radius
+  center_sampling_radius: 1.5
+
+  loss_norm: 10
+  loss_weight: 1.0
+  reg_loss: iou             # iou | diou
+
+  optimizer:
+    name: adamw
+    lr: 1.e-4
+    weight_decay: 0.05
+  clip_grad_norm: 1.0
+
+  scheduler:
+    name: multistep       # cosine | multistep
+    steps: [-1]
+    
+eval:
+  data:
+    name: video_centric
+    split: val
+
+  ranks: [1, 5]
+  iou_threshs: [0.3, 0.5]
+
+  pre_nms_topk: 2000
+  pre_nms_thresh: 0.001
+  seg_len_thresh: 0.1
+
+  nms:
+    mode: soft_nms
+    iou_thresh: 0.1
+    min_score: 0.001
+    max_num_segs: 5
+    sigma: 0.9
+    voting_thresh: 0.95
+
+log:
+  log_interval: 100
+  checkpoint_epochs: [5, 6]

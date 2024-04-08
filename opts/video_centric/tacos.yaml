@@ -1,0 +1,113 @@
+model:
+  text_net:
+    name: transformer     # identity | transformer
+    in_dim: 300           # input dimension
+    embd_dim: 128         # embedding dimension
+    n_heads: 4            # number of attention heads
+    max_seq_len: 48       # max number of tokens in text query
+    n_layers: 5           # number of transformer layers
+    attn_pdrop: 0.0       # dropout rate for attention map
+    proj_pdrop: 0.1       # dropout rate for projection
+    path_pdrop: 0.1       # dropout rate for residual paths
+    use_abs_pe: true      # whether to use absolute position encoding
+    use_bkgd_token: true  # whether to add background token
+    
+  vid_net:
+    name: transformer
+    in_dim: 4096          # input dimension
+    embd_dim: 256         # embedding dimension
+    n_heads: 4            # number of attention heads
+    max_seq_len: 2304     # max number of clips in video
+    arch: [2, 0, 8]       # backbone architecture (embed | stem | branch)
+    mha_win_size: 19      # window size for local self-attention
+    attn_pdrop: 0.0       # dropout rate for attention map
+    proj_pdrop: 0.1       # dropout rate for projection
+    path_pdrop: 0.1       # dropout rate for residual paths
+    use_abs_pe: true      # whether to use absolute position encoding
+    
+  fusion:
+    name: xattn
+    n_layers: 2           # number of fusion layers
+    n_heads: 4            # number of attention heads
+    attn_pdrop: 0.0       # dropout rate for attention map
+    proj_pdrop: 0.1       # dropout rate for projection
+    path_pdrop: 0.1       # dropout rate for residual path
+    xattn_mode: affine    # cross-attention mode
+
+  cls_head:
+    name: cls
+    n_layers: 2           # number of conv layers (output layer excluded)
+    prior_prob: 0.0       # prior probability for positive class
+
+  reg_head:
+    name: reg
+    n_layers: 2           # number of conv layers (output layer excluded)
+
+pt_gen:
+  regression_range: 4     # normalized regression range
+  sigma: 0.5              # controls overlap of regression ranges (1 for no overlap)
+
+train:
+  data:
+    name: video_centric
+    split: train
+    anno_file: ./data/tacos/annotations/tacos.json
+    vid_feat_dir: ./data/tacos/c3d_features
+    text_feat_dir: null
+    ext_score_dir: null
+    tokenizer: glove
+
+    clip_size: 16
+    clip_stride: 4
+    downsample_rate: 4      # downsampling stride for video features
+    to_fixed_len: false     # whether to resize video to fixed length
+    crop_ratio: [0.9, 1.0]  # crop ratio for video features
+    max_num_text: 4         # max number of text queries per video
+
+  batch_size: 4
+  num_workers: 4
+
+  epochs: 10
+  warmup_epochs: 5
+  ema_beta: 0.999
+
+  center_sampling: radius
+  center_sampling_radius: 1.5
+
+  loss_norm: 100
+  loss_weight: 1.0
+  reg_loss: diou          # iou | diou
+
+  optimizer:
+    name: adamw
+    lr: 1.e-3
+    weight_decay: 0.05
+  clip_grad_norm: 1.0
+
+  scheduler:
+    name: multistep       # cosine | multistep
+    steps: [-1]
+    
+eval:
+  data:
+    name: video_centric
+    split: test
+
+  ranks: [1, 5]
+  iou_threshs: [0.3, 0.5]
+
+  pre_nms_topk: 2000
+  pre_nms_thresh: 0.001
+  seg_len_thresh: 0.1
+
+  nms:
+    mode: soft_nms
+    iou_thresh: 0.1
+    min_score: 0.001
+    max_num_segs: 5
+    sigma: 0.9
+    voting_thresh: 0.95
+
+log:
+  log_interval: 100
+  checkpoint_epochs: [-1]
