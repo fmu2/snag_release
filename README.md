@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This code repo implements an SnAG, a scalable and accurate model for long-form video grounding --- localizing moments within an untrimmed long video based on text descriptions. SnAG features a minimalist, late-fusion design for scalable inference, while supporting video-centric sampling for scalable training. Without bells and whistles, SnAG achieves 44.86% R1\@0.5 and 70.66% R5\@0.5 on TACoS, outperforming the previous state of the art by 8.53 and 12.75 absolute percentage points, respectively. Further, SnAG demonstrates strong results on Ego4D-NLQ (13.57% mean R1 and 32.92 mean R5) and the more challenging MAD dataset (5.55 R1\@0.5 and 13.75 R5\@0.5). Our paper is accepted to CVPR 2024 and an arXiv version can be found at [this link](https://arxiv.org/abs/2404.02257).
+This code repo implements SnAG, a scalable and accurate model for long-form video grounding --- localizing moments within an untrimmed long video based on text descriptions. SnAG features a minimalist, late-fusion design for scalable inference, while supporting video-centric sampling for scalable training. Without bells and whistles, SnAG achieves 44.86% R1\@0.5 and 70.66% R5\@0.5 on TACoS, outperforming the previous state of the art by 8.53 and 12.75 absolute percentage points, respectively. Further, SnAG demonstrates strong results on Ego4D-NLQ (13.57% mean R1 and 32.92 mean R5) and the more challenging MAD dataset (5.55 R1\@0.5 and 13.75 R5\@0.5). Our paper is accepted to CVPR 2024 and an arXiv version can be found at [this link](https://arxiv.org/abs/2404.02257).
 
 Related projects:
 > [**ActionFormer: Localizing Moments of Actions with Transformers**](https://arxiv.org/abs/2202.07925) <br>
@@ -108,7 +108,7 @@ python ./eval.py --name tacos_reproduce --ckpt last
 * Download *ego4d_slowfast_bert.tar.gz* (`md5sum d57d03737493e4c7aae39dd3d3d5597b`) from [this Google Drive link](https://drive.google.com/file/d/1G5yR3VrGYpQdzoj7gcSeKiDrICwpbI6b/view?usp=sharing). The file includes SlowFast and BERT features in npy format and annotations in json format.
 * Download *ego4d_egovlp.tar.gz* (`md5sum 44e013aa5c4dcbc4d474fdba5c172804`) from [this Google Drive link](https://drive.google.com/file/d/1EI9FDY45V3VCFpv0yOxdJkSXdj_MTbJY/view?usp=sharing). The file includes EgoVLP video and text features in npy format and annotations in json format.
 
-**Details**: We use official SlowFast features from [here](https://ego4d-data.org/docs/data/features/). They are extracted using the SlowFast model pretrained on Kinetics 400, given clips of `32 frames` with a frame rate of `30 fps` and a stride of `16 frames`. This gives one feature vector per `16/30 ~= 0.533` seconds. The EgoVLP features are extracted using the [EgoVLP model checkpoint](https://drive.google.com/file/d/1-cP3Gcg0NGDcMZalgJ_615BQdbFIbcj7), given clips of `32 frames` with a frame rate of `30 fps` and a stride of `8 frames`. This gives one feature vector per `8/30 ~=0.267` seconds. In practice, SnAG uses 2x-subsampled EgoVLP features (i.e., the *effective* stride is `16 frames`) for fair comparison with baselines.
+**Details**: We use the official SlowFast features from [here](https://ego4d-data.org/docs/data/features/). They are extracted using the SlowFast model pretrained on Kinetics 400, given clips of `32 frames` with a frame rate of `30 fps` and a stride of `16 frames`. This gives one feature vector per `16/30 ~= 0.533` seconds. The EgoVLP features are extracted using the [EgoVLP model checkpoint](https://drive.google.com/file/d/1-cP3Gcg0NGDcMZalgJ_615BQdbFIbcj7), given clips of `32 frames` with a frame rate of `30 fps` and a stride of `8 frames`. This gives one feature vector per `8/30 ~=0.267` seconds. In practice, SnAG uses 2x-subsampled EgoVLP features (i.e., the *effective* stride is `16 frames`) for fair comparison with baselines.
 
 **Unpack Features and Annotations**
 * Unpack the file under *./data* (or elsewhere and link to *./data*).
@@ -123,7 +123,6 @@ This folder
 │    │	 └───annotations
 │    │	 └───slowfast_features
 │    │	 └───bert_features
-│    └───...
 │    └───ego4d_egovlp/
 │    │	 └───annotations
 │    │	 └───egovlp_features
@@ -204,7 +203,7 @@ python ./eval.py --name ego4d_egovlp_reproduce --ckpt last
 
 * Training your own model will yield slightly different results due to randomness, yet the results should be close to what we report in the paper.
 
-### To Reproduce Our Results on MAD
+## To Reproduce Our Results on MAD
 **Download Features and Annotations**
 * Download *mad.tar.gz* (`md5sum dd4fc6f8e2297eb10a1c82d405b03658`) from [this Google Drive link](https://drive.google.com/file/d/10jZ5U9XStwM5xD__zhWJToatKzScQys5/view?usp=sharing). The file includes CLIP features in npy format and annotations in json format.
 
@@ -328,7 +327,7 @@ tensorboard --logdir=./experiments/charades_sta_c3d_reproduce/tensorboard
 ```shell
 tensorboard --logdir=./experiments/charades_sta_i3d_reproduce/tensorboard
 ```
-* Evaluate the trained model. The expected R1\@0.7 and R5\@0.7 should be around 33.5(%) and 65.5(%) with C3D features, and 46.0(%) and 72.0(%) with I3D features.
+* Evaluate the trained model. The expected R1\@0.7 and R5\@0.7 should be around 33.5(%) and 65.5(%) with C3D features, and 46.5(%) and 73.0(%) with I3D features.
 ```shell
 python ./eval.py --name charades_sta_c3d_reproduce --ckpt last
 ```
