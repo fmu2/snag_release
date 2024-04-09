@@ -245,7 +245,7 @@ python ./eval.py --name mad_reproduce --ckpt last
 
 **[Optional] Evaluating Our Pre-trained Model**
 
-We also provide a pre-trained model for MAD. The model with all training logs can be downloaded from [this Google Drive link](). To evaluate the pre-trained model, please follow the steps listed below.
+We also provide a pre-trained model for MAD. The model with all training logs can be downloaded from [this Google Drive link](https://drive.google.com/file/d/19srcs5iK34IzT74VNwBCTi0fZ-P4tRmR/view?usp=sharing). To evaluate the pre-trained model, please follow the steps listed below.
 
 * Unpack the file under *./experiments* (or elsewhere and link to *./experiments*).
 * The folder structure should look like
