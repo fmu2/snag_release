@@ -8,7 +8,7 @@ Related projects:
 > [**ActionFormer: Localizing Moments of Actions with Transformers**](https://arxiv.org/abs/2202.07925) <br>
 > Chenlin Zhang, Jianxin Wu, Yin Li <br>
 > *ECCV 2022* <br>
-[![github](https://img.shields.io/badge/-Github-black?logo=github)](https://github.com/happyharrycn/actionformer_release)  [![github](https://img.shields.io/github/stars/happyharrycn/actionformer_release.svg?style=social)](https://github.com/happyharrycn/actionformer_release)  [![arXiv](https://img.shields.io/badge/Arxiv-2404.02257-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2404.02257) <br>
+[![github](https://img.shields.io/badge/-Github-black?logo=github)](https://github.com/happyharrycn/actionformer_release)  [![github](https://img.shields.io/github/stars/happyharrycn/actionformer_release.svg?style=social)](https://github.com/happyharrycn/actionformer_release)  [![arXiv](https://img.shields.io/badge/Arxiv-2404.02257-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2202.07925) <br>
 
 ## Changelog
 * 04/03/2024: Initial code release.
