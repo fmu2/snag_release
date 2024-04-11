@@ -4,7 +4,7 @@
 
 This code repo implements SnAG, a scalable and accurate model for long-form video grounding --- localizing moments within an untrimmed long video based on text descriptions. SnAG features a minimalist, late-fusion design for scalable inference, while supporting video-centric sampling for scalable training. Without bells and whistles, SnAG achieves 44.86% R1\@0.5 and 70.66% R5\@0.5 on TACoS, outperforming the previous state of the art by 8.53 and 12.75 absolute percentage points, respectively. Further, SnAG demonstrates strong results on Ego4D-NLQ (13.57% mean R1 and 32.92 mean R5) and the more challenging MAD dataset (5.55 R1\@0.5 and 13.75 R5\@0.5). Our paper is accepted to CVPR 2024 and an arXiv version can be found at [this link](https://arxiv.org/abs/2404.02257).
 
-Related projects:
+**Related projects:**
 > [**ActionFormer: Localizing Moments of Actions with Transformers**](https://arxiv.org/abs/2202.07925) <br>
 > Chenlin Zhang, Jianxin Wu, Yin Li <br>
 > *ECCV 2022* <br>
@@ -29,7 +29,7 @@ The structure of this code repo is heavily inspired by ActionFormer. Some of the
 **Download Features and Annotations**
 * Download *tacos.tar.gz* (`md5sum a96537114a930038ab8ddb64a17df6e0`) from [this Google Drive link](https://drive.google.com/file/d/1T5bd6_Z9zuSFastgZu88Uos1PQf1FPqN/view?usp=drive_link). The file includes C3D features in npy format and annotations in json format.
 
-**Details**: The features are extracted using the C3D model pretrained on Sports1M, given clips of `16 frames` with a frame rate of `~30 fps` and a stride of `4 frames`. This gives one feature vector per `4/30 ~= 0.1333` seconds.
+**Details**: The features are extracted using the C3D model pretrained on Sports1M, given clips of `16 frames` with a frame rate of `~30 fps` and a stride of `4 frames`. This gives one feature vector per `4/30 ~= 0.1333` seconds. In practice, SnAG uses 4x-subsampled C3D features (i.e., the *effective* stride is `16 frames`) for fair comparison with baselines.
 
 **Unpack Features and Annotations**
 * Unpack the file under *./data* (or elsewhere and link to *./data*).
