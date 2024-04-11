@@ -460,6 +460,9 @@ python ./eval.py --name anet_1.3_reproduce --ckpt last
 
 * Training your own model will yield slightly different results due to randomness, yet the results should be close to what we report in the paper.
 
+## Backup Links
+* [百度云](https://pan.baidu.com/s/1H59xQ1Jf6tll4Hc5aL8bYQ) (提取码: 2024)
+
 ## Contact
 Fangzhou Mu (fmu2@wisc.edu)
 
