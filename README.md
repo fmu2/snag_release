@@ -10,7 +10,26 @@ This code repo implements SnAG, a scalable and accurate model for long-form vide
 > *ECCV 2022* <br>
 [![github](https://img.shields.io/badge/-Github-black?logo=github)](https://github.com/happyharrycn/actionformer_release)  [![github](https://img.shields.io/github/stars/happyharrycn/actionformer_release.svg?style=social)](https://github.com/happyharrycn/actionformer_release)  [![arXiv](https://img.shields.io/badge/Arxiv-2202.07925-b31b1b.svg?logo=arXiv)](https://arxiv.org/abs/2202.07925) <br>
 
+## Visualization
+
+We provide visualizations of localized moments in Ego4D-NLQ videos.
+
+* **Left**: Current text query is highlighted.
+* **Right**: Video is slowed down if an event is detected by our method.
+* **Green border**: correct prediction.
+* **Red border**: incorrect prediction*.
+
+Note that the ground-truth moments are determined by human annotations and subject to errors.
+
+<img src="https://media.githubusercontent.com/media/fmu2/snag_release/main/viz/085f7a8b-e1e5-4e7b-a83d-5ea650edd9fe.gif" width="540"/>
+
+<img src="https://media.githubusercontent.com/media/fmu2/snag_release/main/viz/0aca0078-b6ab-41fb-9dc5-a70b8ad137b2.gif" width="540"/>
+
+<img src="https://media.githubusercontent.com/media/fmu2/snag_release/main/viz/0ca4506c-962d-4cf1-aa6d-f8222f53dee6.gif" width="540"/>
+
 ## Changelog
+* 04/21/2024: Ego4D result visualization.
+
 * 04/03/2024: Initial code release.
 
 * 02/26/2024: The paper is accepted to CVPR 2024.
