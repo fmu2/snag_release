@@ -17,7 +17,7 @@ We provide visualizations of localized moments in Ego4D-NLQ videos.
 * **Left**: Current text query is highlighted.
 * **Right**: Video is slowed down if an event is detected by our method.
 * **Green border**: correct prediction.
-* **Red border**: incorrect prediction*.
+* **Red border**: incorrect prediction.
 
 Note that the ground-truth moments are determined by human annotations and subject to errors.
 
