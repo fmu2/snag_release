@@ -224,7 +224,7 @@ python ./eval.py --name ego4d_egovlp_reproduce --ckpt last
 
 ## To Reproduce Our Results on MAD
 **Download Features and Annotations**
-* Download *mad.tar.gz* (`md5sum dd4fc6f8e2297eb10a1c82d405b03658`) from [this Google Drive link](https://drive.google.com/file/d/10jZ5U9XStwM5xD__zhWJToatKzScQys5/view?usp=sharing). The file includes CLIP features in npy format and annotations in json format.
+* ~~Download *mad.tar.gz* (`md5sum dd4fc6f8e2297eb10a1c82d405b03658`) from [this Google Drive link](https://drive.google.com/file/d/10jZ5U9XStwM5xD__zhWJToatKzScQys5/view?usp=sharing). The file includes CLIP features in npy format and annotations in json format.~~ The MAD dataset owner has requested us to remove the link. Please download the features from the [official MAD repository](https://github.com/Soldelli/MAD). We will upload a preprocessing script shortly.
 
 **Details**: We use the official CLIP features from [here](https://github.com/Soldelli/MAD). The features are extracted using CLIP ViT-L/14 with a frame rate of `5 fps`. This gives one feature vector every `0.2` seconds.
 
