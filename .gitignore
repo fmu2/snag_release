@@ -1,6 +1,7 @@
 /data/
 /experiments/
 /log/
+/viz/
 .vector_cache/
 libs/utils/dist
 libs/utils/nms_1d_cpu.egg-info
