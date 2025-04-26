@@ -21,11 +21,11 @@ We provide visualizations of localized moments in Ego4D-NLQ videos.
 
 Note that the ground-truth moments are determined by human annotations and subject to errors.
 
-<img src="https://media.githubusercontent.com/media/fmu2/snag_release/main/viz/085f7a8b-e1e5-4e7b-a83d-5ea650edd9fe.gif" width="720"/>
+<img src="https://i.imgur.com/qlTGLb6.gif"/>
 
-<img src="https://media.githubusercontent.com/media/fmu2/snag_release/main/viz/0aca0078-b6ab-41fb-9dc5-a70b8ad137b2.gif" width="720"/>
+<img src="https://i.imgur.com/jISUXdd.gif"/>
 
-<img src="https://media.githubusercontent.com/media/fmu2/snag_release/main/viz/0ca4506c-962d-4cf1-aa6d-f8222f53dee6.gif" width="720"/>
+<img src="https://i.imgur.com/1axtiui.gif"/>
 
 ## Changelog
 * 04/21/2024: Ego4D result visualization.
